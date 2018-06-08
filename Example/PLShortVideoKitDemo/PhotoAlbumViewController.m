@@ -708,12 +708,18 @@ static NSString * const reuseIdentifier = @"Cell";
     
     __weak typeof(self)weakSelf = self;
     PLSImageToMovieComposer *imageToMovieComposer = [[PLSImageToMovieComposer alloc] initWithImages:self.urls];
-    if (self.isMovieLandscapeOrientation) {
-        imageToMovieComposer.videoSize = CGSizeMake(960, 544);
-    } else {
-        imageToMovieComposer.videoSize = CGSizeMake(544, 960);
-    }
+//    if (self.isMovieLandscapeOrientation) {
+//        imageToMovieComposer.videoSize = CGSizeMake(960, 544);
+//    } else {
+//        imageToMovieComposer.videoSize = CGSizeMake(544, 960);
+//    }
     
+    
+    // 设置属性
+    imageToMovieComposer.videoFramerate = 30;
+    imageToMovieComposer.bitrate = 2500 * 1000;
+    imageToMovieComposer.transitionDuration = 0.0f;
+    imageToMovieComposer.videoSize = CGSizeMake(720, 1280);
     // Warning：在这之前一定要给 self.imageDuration 赋值，不然就会 crash。
     // 在 - (void)setupEditToolboxView 里设置了 self.imageDuration = 2.0f;，self.imageDuration 的值的改变通过 - (void)imageDurationButtonClicked:(UIButton *)sender 事件。
     imageToMovieComposer.imageDuration = self.imageDuration;
