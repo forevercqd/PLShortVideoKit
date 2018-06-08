@@ -313,54 +313,54 @@ PLSSelectionViewDelegate
     __weak typeof(self) weakSelf = self;
     
     // 比如选取 [startTime, endTime] 这段视频来转码输出
-    CMTimeRange timeRange = CMTimeRangeFromTimeToTime(CMTimeMake(self.startTime, 1), CMTimeMake(self.endTime, 1));
+//    CMTimeRange timeRange = CMTimeRangeFromTimeToTime(CMTimeMake(self.startTime, 1), CMTimeMake(self.endTime, 1));
 
-    self.shortVideoTranscoder = [[PLShortVideoTranscoder alloc] initWithURL:self.url];
-    self.shortVideoTranscoder.outputFileType = PLSFileTypeMPEG4;
-    self.shortVideoTranscoder.outputFilePreset = self.transcoderPreset;
-    self.shortVideoTranscoder.timeRange = timeRange;
-    self.shortVideoTranscoder.rotateOrientation = self.rotateOrientation;
+//    self.shortVideoTranscoder = [[PLShortVideoTranscoder alloc] initWithURL:self.url];
+//    self.shortVideoTranscoder.outputFileType = PLSFileTypeMPEG4;
+//    self.shortVideoTranscoder.outputFilePreset = self.transcoderPreset;
+//    self.shortVideoTranscoder.timeRange = timeRange;
+//    self.shortVideoTranscoder.rotateOrientation = self.rotateOrientation;
     
-    [self.shortVideoTranscoder setCompletionBlock:^(NSURL *url){
-
-        NSLog(@"transCoding successd, url: %@", url);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf removeActivityIndicatorView];
-            weakSelf.progressLabel.text = @"";
-            
-            NSString *beforeTranscodingSize = [NSString stringWithFormat:@"%.2f", [weakSelf fileSize:weakSelf.url]];
-            NSString *afterTranscodingSize = [NSString stringWithFormat:@"%.2f", [weakSelf fileSize:url]];
-            
-            NSLog(@"%@-->%@", beforeTranscodingSize, afterTranscodingSize);
-            
+//    [self.shortVideoTranscoder setCompletionBlock:^(NSURL *url){
+//
+//        NSLog(@"transCoding successd, url: %@", url);
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [weakSelf removeActivityIndicatorView];
+//            weakSelf.progressLabel.text = @"";
+//
+//            NSString *beforeTranscodingSize = [NSString stringWithFormat:@"%.2f", [weakSelf fileSize:weakSelf.url]];
+//            NSString *afterTranscodingSize = [NSString stringWithFormat:@"%.2f", [weakSelf fileSize:url]];
+//
+//            NSLog(@"%@-->%@", beforeTranscodingSize, afterTranscodingSize);
+    
             ClipMovieViewController *clipMovieViewController = [[ClipMovieViewController alloc] init];
-            clipMovieViewController.url = url;
+            clipMovieViewController.url = self.url;
             [weakSelf presentViewController:clipMovieViewController animated:YES completion:nil];
-        });
-    }];
+//        });
+//    }];
+//
+//    [self.shortVideoTranscoder setFailureBlock:^(NSError *error){
+//
+//        NSLog(@"transCoding failed: %@", error);
+//
+//        AlertViewShow(error);
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [weakSelf removeActivityIndicatorView];
+//            weakSelf.progressLabel.text = @"";
+//        });
+//    }];
+//
+//    [self.shortVideoTranscoder setProcessingBlock:^(float progress){
+//        // 更新压缩进度的 UI
+//        NSLog(@"transCoding progress: %f", progress);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            weakSelf.progressLabel.text = [NSString stringWithFormat:@"转码进度%d%%", (int)(progress * 100)];
+//        });
+//    }];
     
-    [self.shortVideoTranscoder setFailureBlock:^(NSError *error){
-        
-        NSLog(@"transCoding failed: %@", error);
-        
-        AlertViewShow(error);
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf removeActivityIndicatorView];
-            weakSelf.progressLabel.text = @"";
-        });
-    }];
-    
-    [self.shortVideoTranscoder setProcessingBlock:^(float progress){
-        // 更新压缩进度的 UI
-        NSLog(@"transCoding progress: %f", progress);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.progressLabel.text = [NSString stringWithFormat:@"转码进度%d%%", (int)(progress * 100)];
-        });
-    }];
-    
-    [self.shortVideoTranscoder startTranscoding];
+//    [self.shortVideoTranscoder startTranscoding];
 }
 
 #pragma mark -- 计算文件的大小，单位为 M

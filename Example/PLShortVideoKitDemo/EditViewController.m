@@ -35,6 +35,7 @@
 #define PLS_SCREEN_HEIGHT CGRectGetHeight([UIScreen mainScreen].bounds)
 #define PLS_BaseToolboxView_HEIGHT 64
 
+static double start_time_export_video = 0.0f;
 
 @interface EditViewController ()
 <
@@ -1583,6 +1584,16 @@ PLSVideoEditingControllerDelegate
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+#pragma mark -- 获取文件大小
+- (long long)fileSizeWithPath:(NSString *)filePath {
+    NSError *pError = nil;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&pError];
+    NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
+    long long fileSize = [fileSizeNumber longLongValue];
+    return fileSize;
+}
+
 #pragma mark -- 下一步
 - (void)nextButtonClick {
     [self.shortVideoEditor stopEditing];
@@ -1621,7 +1632,24 @@ PLSVideoEditingControllerDelegate
     __weak typeof(self) weakSelf = self;
     [exportSession setCompletionBlock:^(NSURL *url) {
         NSLog(@"Asset Export Completed");
-
+        double end_time_export_video = [NSDate date].timeIntervalSince1970;
+        long long fileSize = [self fileSizeWithPath:url.relativePath];
+        
+        /////////////////
+        
+        // 弹窗提示;
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示"  message:[NSString stringWithFormat:@"代码耗时：%f\n文件大小：%lld\nurl:%@", (end_time_export_video - start_time_export_video), fileSize, url] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+        
+        ////////////////
         // TuSDK mark 视频特效预览，先重置标记位
         [weakSelf resetPreviewVideoEffectsMark];
         
@@ -1648,6 +1676,7 @@ PLSVideoEditingControllerDelegate
         weakSelf.progressLabel.text = [NSString stringWithFormat:@"%d%%", (int)(progress * 100)];
     }];
     
+    start_time_export_video = [NSDate date].timeIntervalSince1970;
     [exportSession exportAsynchronously];
 }
     

@@ -532,6 +532,7 @@
 		C3FCBFD61F305B70007EBB10 /* btn_selected_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FCBFD21F305B70007EBB10 /* btn_selected_pic@2x.png */; };
 		C3FCBFD71F305B70007EBB10 /* btn_selected_pic@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FCBFD31F305B70007EBB10 /* btn_selected_pic@3x.png */; };
 		C3FCBFD91F305B8A007EBB10 /* icon_gif.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FCBFD81F305B8A007EBB10 /* icon_gif.png */; };
+		E1D8099C20CA7AAB0057420A /* yannanfei.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E1D8099B20CA7AAB0057420A /* yannanfei.mp3 */; };
 		F360B89E036039A66815D9FE /* libPods-PLShortVideoKitDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57AEAFA0012D959C08AB23AE /* libPods-PLShortVideoKitDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -1314,6 +1315,7 @@
 		C3FCBFD21F305B70007EBB10 /* btn_selected_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_selected_pic@2x.png"; path = "images/btn_selected_pic@2x.png"; sourceTree = "<group>"; };
 		C3FCBFD31F305B70007EBB10 /* btn_selected_pic@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "btn_selected_pic@3x.png"; path = "images/btn_selected_pic@3x.png"; sourceTree = "<group>"; };
 		C3FCBFD81F305B8A007EBB10 /* icon_gif.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_gif.png; path = images/icon_gif.png; sourceTree = "<group>"; };
+		E1D8099B20CA7AAB0057420A /* yannanfei.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = yannanfei.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2081,6 +2083,7 @@
 		0A94357F1E6CA2E2008845A3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E1D8099B20CA7AAB0057420A /* yannanfei.mp3 */,
 				766CEBA6205BD91400F708D7 /* TransitionResources */,
 				766CEBA4205BD8FD00F708D7 /* h265_video */,
 				0AF33BF41F7180D100CCFB42 /* 爱马仕.mp4 */,
@@ -2499,6 +2502,7 @@
 				0A2387862091692800BFE159 /* lsq_filter_thumb_Morning.jpg in Resources */,
 				0A26A75A1FE392F9003B9691 /* file_path.png in Resources */,
 				0A2386FC2091692700BFE159 /* nav_ic_lamp_w@2x.png in Resources */,
+				E1D8099C20CA7AAB0057420A /* yannanfei.mp3 in Resources */,
 				0A2387F62091692800BFE159 /* style_default_2.0_flash_closed@3x.png in Resources */,
 				0A398F9F1ED6698F00996229 /* cut_bar_progress@2x.png in Resources */,
 				0A2387C82091692800BFE159 /* style_default_1.11_btn_back_selected_w@2x.png in Resources */,

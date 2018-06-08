@@ -716,7 +716,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     
     // 设置属性
-    imageToMovieComposer.videoFramerate = 30;
+    imageToMovieComposer.videoFramerate = 25;
     imageToMovieComposer.bitrate = 2500 * 1000;
     imageToMovieComposer.transitionDuration = 0.0f;
     imageToMovieComposer.videoSize = CGSizeMake(720, 1280);
