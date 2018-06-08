@@ -2397,8 +2397,8 @@
 				TargetAttributes = {
 					0A94357B1E6CA2E2008845A3 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = GDFHW66V92;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = TJV6VLRJLL;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -3144,8 +3144,9 @@
 			baseConfigurationReference = 29048327CD6F75BD8D75B80B /* Pods-PLShortVideoKitDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = GDFHW66V92;
+				DEVELOPMENT_TEAM = TJV6VLRJLL;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3171,6 +3172,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qbox.PLShortVideoKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "aaff26d4-d30b-4b17-a565-f46ce0913b1e";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS-Dev-profile";
 			};
 			name = Debug;
 		};
@@ -3179,7 +3182,8 @@
 			baseConfigurationReference = 85B60FAE619932ED649E6840 /* Pods-PLShortVideoKitDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = GDFHW66V92;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3205,6 +3209,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qbox.PLShortVideoKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

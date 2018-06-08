@@ -682,6 +682,17 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 }
 
+
+#pragma mark -- 获取文件大小
+- (long long)fileSizeWithPath:(NSString *)filePath {
+    NSError *pError = nil;
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:&pError];
+    NSNumber *fileSizeNumber = [fileAttributes objectForKey:NSFileSize];
+    long long fileSize = [fileSizeNumber longLongValue];
+    return fileSize;
+}
+
+
 // 图片合成为视频
 - (void)imageToMovieEvent {
     [self.urls removeAllObjects];
@@ -705,7 +716,8 @@ static NSString * const reuseIdentifier = @"Cell";
     imageToMovieComposer.imageDuration = self.imageDuration;
     
     [imageToMovieComposer setCompletionBlock:^(NSURL *url) {
-        NSLog(@"imageToMovieComposer ur: %@", url);
+        long long fileSize = [self fileSizeWithPath:url.relativePath];
+        NSLog(@"CQD.2 imageToMovieComposer ur: %@, fileSize %lld", url, fileSize);
         
         [weakSelf removeActivityIndicatorView];
         weakSelf.progressLabel.text = @"";
@@ -726,6 +738,7 @@ static NSString * const reuseIdentifier = @"Cell";
         weakSelf.progressLabel.text = [NSString stringWithFormat:@"合成进度%d%%", (int)(progress * 100)];
     }];
     
+    NSLog(@"CQD.1, Before call startComposing@");
     [imageToMovieComposer startComposing];
 }
 
