@@ -19,6 +19,9 @@
 
 #pragma mark -- PLSScrollView
 
+
+static double start_time_photo_to_video = 0.0f;
+
 @implementation PLSScrollView
 {
     float singleWidth;
@@ -449,7 +452,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (self.mediaType == PHAssetMediaTypeImage) {
         // 处理图片转视频模块，就加个按钮来决定图片的持续时间
         UIButton *imageDurationButton = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.editToolboxView.frame) - 230, 5, 90, 30)];
-        [imageDurationButton setTitle:@"图片时长2秒" forState:UIControlStateNormal];
+        [imageDurationButton setTitle:@"图片时长3秒" forState:UIControlStateNormal];
         [imageDurationButton setTitle:@"图片时长3秒" forState:UIControlStateSelected];
         imageDurationButton.selected = NO;
         [imageDurationButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -460,7 +463,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [imageDurationButton addTarget:self action:@selector(imageDurationButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.editToolboxView addSubview:imageDurationButton];
         
-        self.imageDuration = 2.0f; // 默认为 2 秒
+        self.imageDuration = 3.0f; // 默认为 3 秒
     }
 }
 
@@ -612,7 +615,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (sender.selected) {
         self.imageDuration = 3.0f;
     } else {
-        self.imageDuration = 2.0f;
+        self.imageDuration = 3.0f;
     }
 }
 
@@ -716,15 +719,28 @@ static NSString * const reuseIdentifier = @"Cell";
     imageToMovieComposer.imageDuration = self.imageDuration;
     
     [imageToMovieComposer setCompletionBlock:^(NSURL *url) {
+        double end_time_photo_to_video = [NSDate date].timeIntervalSince1970;
+        
         long long fileSize = [self fileSizeWithPath:url.relativePath];
-        NSLog(@"CQD.2 imageToMovieComposer ur: %@, fileSize %lld", url, fileSize);
+        NSLog(@"CQD.2 imageToMovieComposer ur: %@, fileSize %lld, cost time %f.", url, fileSize, (end_time_photo_to_video - start_time_photo_to_video));
         
-        [weakSelf removeActivityIndicatorView];
-        weakSelf.progressLabel.text = @"";
+        // 弹窗提示;
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"提示"  message:[NSString stringWithFormat:@"代码耗时：%f\n文件大小：%lld\nurl:%@", (end_time_photo_to_video - start_time_photo_to_video), fileSize, url] preferredStyle:UIAlertControllerStyleAlert];
         
-        MovieTransCodeViewController *transCodeViewController = [[MovieTransCodeViewController alloc] init];
-        transCodeViewController.url = url;
-        [self presentViewController:transCodeViewController animated:YES completion:nil];
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [weakSelf removeActivityIndicatorView];
+            weakSelf.progressLabel.text = @"";
+            //
+            MovieTransCodeViewController *transCodeViewController = [[MovieTransCodeViewController alloc] init];
+            transCodeViewController.url = url;
+            [self presentViewController:transCodeViewController animated:YES completion:nil];
+        }];
+        
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:^{
+            
+        }];
+        
     }];
     [imageToMovieComposer setFailureBlock:^(NSError *error) {
         NSLog(@"imageToMovieComposer failed");
@@ -738,7 +754,7 @@ static NSString * const reuseIdentifier = @"Cell";
         weakSelf.progressLabel.text = [NSString stringWithFormat:@"合成进度%d%%", (int)(progress * 100)];
     }];
     
-    NSLog(@"CQD.1, Before call startComposing@");
+    start_time_photo_to_video = [NSDate date].timeIntervalSince1970;
     [imageToMovieComposer startComposing];
 }
 
